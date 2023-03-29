@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Main {
+
+    //Normal display of Linked List
+    public void display(Node head){
+        Node temp=head;
+        while(temp!=null){
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+
+    }
+    // Recursive Approach for reverse display of a linked list without reversing it.
+    public void displayReverse(Node head){
+        if(head == null){
+            return;
+        }
+        displayReverse(head.next);
+        System.out.print(head.data + " ");
+
+    }
+
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        
+        Node head = new Node(in.nextInt());
+        Node temp = head;
+        for(int i=1; i<N; i++){
+            temp.next = new Node(in.nextInt());
+            temp = temp.next;
+        }
+        Main ob = new Main();
+        // ob.display(head);
+        ob.displayReverse(head);
+
+    }
+}
+
+
+class Node{
+    int data;
+    Node next;
+
+    Node(int data){
+        this.data = data;
+        this.next = null;
+    }
+}
