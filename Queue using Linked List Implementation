@@ -1,100 +1,79 @@
-package com.datastructure;
+package com.queue.linkedlist;
 
-public class Queue {
+class Node {
+	int nodeData;
+	Node nextNode;
 
-	int maxsize;
-	int[] arr;
-	int front;
-	int rear;
-
-	public Queue(int maxsize) {
-		this.maxsize = maxsize;
-		arr = new int[maxsize];
-		this.front = -1;
-		this.rear = -1;
+	public Node(int dataValue) {
+		this.nodeData = dataValue;
+		this.nextNode = null;
 	}
 
-	public boolean isEmpty() {
-		if (front == -1) {
-			return true;
+}
+
+public class QueueImplementationUsingLinkedList {
+
+	Node head = null;
+	Node tail = null;
+
+	public void enqueue(int dataValue) {
+		Node newNode = new Node(dataValue);
+		if (head == null) {
+			head = tail = newNode;
+			return;
 		}
-		return false;
+		tail.nextNode = newNode;
+		tail = newNode;
 	}
 
-	public boolean isFull() {
-		if (rear == maxsize - 1) {
-			return true;
-		}
-		return false;
-	}
-
-	public void enque(int value) {
-
-		if (!isFull()) {
-			rear++;
-			arr[rear] = value;
-			if (front == -1) {
-				front = 0;
-			}
-		} else {
-			System.out.println("Queue is full");
-		}
-
-	}
-
-	public void deque() {
-		if (isEmpty()) {
+	public void dequeue() {
+		if (head == null) {
 			System.out.println("Queue is empty");
-		} else if (front == rear) {
-			front = -1;
-			rear = -1;
+			return;
+		}
+
+		System.out.println("Node data " + head.nodeData + " deleted from queue");
+
+		if (head == tail) {
+			head = tail = null;
+
 		} else {
-			front++;
+			head = head.nextNode;
 		}
 	}
 
-	public void print() {
-		if (isEmpty()) {
+	public void display() {
+		if (head == null) {
 			System.out.println("Queue is empty");
-		} else {
-			for (int i = front; i <= rear; i++) {
-				System.out.print(arr[i] + " ");
-			}
+			return;
 		}
-		System.out.println("\n");
+		Node current = head;
+		while (current != null) {
+			System.out.print(current.nodeData + " -> ");
+			current = current.nextNode;
+		}
+		System.out.println("NULL");
 	}
 
 	public static void main(String[] args) {
 
-		Queue queue = new Queue(5);
-
-		// queue.print();
-		queue.enque(10);
-		queue.enque(20);
-		queue.enque(30);
-		queue.enque(40);
-		queue.enque(50);
-
-		queue.print();
-
-		queue.deque();
-		queue.print();
-		queue.deque();
-		queue.print();
-		queue.deque();
-		queue.print();
-		queue.deque();
-		queue.print();
-		queue.enque(100);
-		queue.deque();
-		queue.print();
-		queue.enque(10);
-		queue.enque(20);
-		queue.enque(30);
-		queue.enque(40);
-		queue.enque(200);
-		queue.enque(300);
-		queue.print();
+		QueueImplementationUsingLinkedList queue = new QueueImplementationUsingLinkedList();
+		queue.enqueue(100);
+		queue.enqueue(200);
+		queue.enqueue(300);
+		queue.enqueue(400);
+		queue.display();
+		queue.dequeue();
+		queue.display();
+		queue.dequeue();
+		queue.display();
+		queue.dequeue();
+		queue.display();
+		queue.dequeue();
+		queue.display();
+		queue.enqueue(500);
+		queue.enqueue(600);
+		queue.display();
 
 	}
 
